@@ -1,0 +1,25 @@
+<h2>List of Items</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let item of items; let i = index">
+    <td *ngIf="editingItem !== item">{{ item.name }}</td>
+    <td *ngIf="editingItem === item">
+      <input type="text" [ngModel]="editingItem.name" [formControl]="nameControl" name="name" />
+    </td>
+    <td *ngIf="editingItem !== item">{{ item.description }}</td>
+    <td *ngIf="editingItem === item">
+      <input type="text" [ngModel]="editingItem.description" [formControl]="descriptionControl" name="description" />
+    </td>
+    <td>
+      <button *ngIf="editingItem !== item" (click)="editItem(item)">Edit</button>
+      <button *ngIf="editingItem === item" (click)="updateItem()">Update</button>
+      <button *ngIf="editingItem === item" (click)="cancelEdit()">Cancel</button>
+      <button (click)="deleteItem(item._id)">Delete</button>
+    </td>
+  </tr>
+</table>
+<button (click)="navigateToCreate()">Create New Item</button>
